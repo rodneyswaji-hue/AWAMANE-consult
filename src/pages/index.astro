@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHero from '../components/sections/HomeHero.astro';
+import PhotoMarquee from '../components/sections/PhotoMarquee.astro';
+import ServiceCard from '../components/sections/ServiceCard.astro';
+import ProjectCard from '../components/sections/ProjectCard.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+import { getCollection } from 'astro:content';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const allProjects = await getCollection('projects');
+const featuredProjects = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+---
+
+<BaseLayout>
+  <HomeHero />
+
+  <PhotoMarquee />
+
+  <!-- WHY AWAMANE -->
+  <section class="section">
+    <div class="container-x">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-4">
+          <Eyebrow>Why Awamane</Eyebrow>
+          <h2 class="mt-5">
+            Where academic rigour meets the realities of Kenyan farming.
+          </h2>
+        </div>
+
+        <div class="lg:col-span-8">
+          <div class="grid sm:grid-cols-2 gap-6 stagger-children">
+            <div class="p-6 rounded-[var(--radius-lg)] bg-white border border-[var(--color-sand)]/60">
+              <div class="w-10 h-10 rounded-lg bg-[var(--color-forest-50)] text-[var(--color-forest-700)] flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.2528M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.2528C4.16789 18.4769 5.75351 18 7.5 18C9.24649 18 10.8321 18.4769 12 19.2528M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.2528C19.8321 18.4769 18.2465 18 16.5 18C14.7535 18 13.1679 18.4769 12 19.2528" />
+                </svg>
+              </div>
+              <h3 class="text-lg mb-2">Academic-grade expertise</h3>
+              <p class="text-sm text-[var(--color-charcoal)]/75 leading-relaxed">
+                Led by Prof. Titus Kanui — a professor of animal science with over four decades of research and teaching experience across Kenya's top agricultural institutions.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-[var(--radius-lg)] bg-white border border-[var(--color-sand)]/60">
+              <div class="w-10 h-10 rounded-lg bg-[var(--color-earth-100)] text-[var(--color-earth-600)] flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9" />
+                  <path stroke-linecap="round" d="M12 7v5l3 2" />
+                </svg>
+              </div>
+              <h3 class="text-lg mb-2">Site-specific solutions</h3>
+              <p class="text-sm text-[var(--color-charcoal)]/75 leading-relaxed">
+                No copy-paste recommendations. Every farm, flock, and community gets a plan built around their soil, their climate, their resources, and their goals.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-[var(--radius-lg)] bg-white border border-[var(--color-sand)]/60">
+              <div class="w-10 h-10 rounded-lg bg-[var(--color-water-100)] text-[var(--color-water-600)] flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 2a8 8 0 018 8c0 6-8 12-8 12S4 16 4 10a8 8 0 018-8z" />
+                  <circle cx="12" cy="10" r="2" fill="currentColor" stroke="none" />
+                </svg>
+              </div>
+              <h3 class="text-lg mb-2">Eco-friendly by design</h3>
+              <p class="text-sm text-[var(--color-charcoal)]/75 leading-relaxed">
+                Climate-smart practices, low-input systems, and community-owned infrastructure. Productivity and sustainability aren't in tension — they reinforce each other.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-[var(--radius-lg)] bg-white border border-[var(--color-sand)]/60">
+              <div class="w-10 h-10 rounded-lg bg-[var(--color-forest-100)] text-[var(--color-forest-700)] flex items-center justify-center mb-4">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m3-4a4 4 0 110-8 4 4 0 010 8zm-7 0a3 3 0 110-6 3 3 0 010 6zm14 0a3 3 0 110-6 3 3 0 010 6z" />
+                </svg>
+              </div>
+              <h3 class="text-lg mb-2">Smallholder to enterprise</h3>
+              <p class="text-sm text-[var(--color-charcoal)]/75 leading-relaxed">
+                Equally at home with a one-acre kitchen garden or a thousand-head herd. Comfortable working with farmer groups, NGOs, counties, and commercial operators.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section bg-white relative overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--color-sand)] to-transparent"></div>
+
+    <div class="container-x">
+      <div class="max-w-3xl mb-16">
+        <Eyebrow>What we do</Eyebrow>
+        <h2 class="mt-5">
+          Three pillars. One integrated approach to farming that works.
+        </h2>
+        <p class="mt-6 text-lg text-[var(--color-charcoal)]/75 leading-relaxed">
+          Our services are built around the interconnected realities of African agriculture — soil, livestock, and water cannot be managed in isolation, and we don't try to.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 stagger-children">
+        {services.map((service, i) => (
+          <ServiceCard
+            title={service.data.title}
+            summary={service.data.summary}
+            icon={service.data.icon}
+            href={`/services/${service.id}`}
+            index={i}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD EXPERT TEASER -->
+  <section class="section surface-paper grain relative overflow-hidden">
+    <div class="container-x relative">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <!-- Visual -->
+        <div class="lg:col-span-5 order-2 lg:order-1">
+          <div class="relative max-w-md mx-auto">
+            <!-- Frame -->
+            <div class="aspect-[4/5] rounded-[var(--radius-xl)] overflow-hidden shadow-[var(--shadow-lift)] bg-gradient-to-br from-[var(--color-forest-700)] to-[var(--color-forest-900)] relative">
+              <!-- Initials monogram as portrait placeholder -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center text-[var(--color-cream)]">
+                  <div class="font-[var(--font-display)] text-[10rem] leading-none opacity-15">TK</div>
+                </div>
+              </div>
+
+              <!-- Decorative leaf -->
+              <svg class="absolute bottom-0 right-0 w-64 h-64 text-[var(--color-earth-400)] opacity-20" viewBox="0 0 200 200" aria-hidden="true">
+                <path d="M20 180 C 20 80, 80 20, 180 20 C 180 120, 120 180, 20 180 Z" fill="currentColor" />
+              </svg>
+
+              <div class="absolute bottom-6 left-6 right-6 text-[var(--color-cream)]">
+                <div class="text-xs uppercase tracking-[0.2em] text-[var(--color-earth-200)]">Photo to be added</div>
+              </div>
+            </div>
+
+            <!-- Credential chips -->
+            <div class="absolute -top-4 -right-4 bg-[var(--color-cream)] rounded-full px-4 py-2 text-xs font-medium text-[var(--color-forest-700)] shadow-[var(--shadow-soft)] border border-[var(--color-sand)]/50">
+              BVM, PhD
+            </div>
+            <div class="absolute -bottom-4 -left-4 bg-[var(--color-earth-400)] rounded-full px-4 py-2 text-xs font-medium text-[var(--color-ink)] shadow-[var(--shadow-soft)]">
+              40+ years
+            </div>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="lg:col-span-7 order-1 lg:order-2">
+          <Eyebrow>Meet our lead expert</Eyebrow>
+          <h2 class="mt-5">Prof. Titus Ikusya Kanui</h2>
+          <p class="mt-2 text-lg text-[var(--color-earth-600)] font-[var(--font-display)] italic">
+            Professor of Animal Science · Founder, Awamane Consult
+          </p>
+          <p class="mt-6 text-lg text-[var(--color-charcoal)]/80 leading-relaxed">
+            Prof. Kanui has spent over four decades at the frontier of African animal science — first as a faculty member at the University of Nairobi for thirty years, and since 2010 as Professor of Animal Science at South Eastern Kenya University.
+          </p>
+          <p class="mt-4 text-lg text-[var(--color-charcoal)]/80 leading-relaxed">
+            His research spans animal nutrition, dairy science, poultry production, and the scientific validation of traditional veterinary medicine — with more than sixty peer-reviewed publications to his name.
+          </p>
+          <div class="mt-8">
+            <a href="/about" class="link-arrow">Read his full profile</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECTS -->
+  <section class="section">
+    <div class="container-x">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+        <div class="max-w-2xl">
+          <Eyebrow>From the field</Eyebrow>
+          <h2 class="mt-5">Projects we've worked on</h2>
+          <p class="mt-5 text-lg text-[var(--color-charcoal)]/75 leading-relaxed">
+            A small selection of the farms, communities, and programmes we've supported across Eastern Kenya.
+          </p>
+        </div>
+        <a href="/projects" class="link-arrow">View all projects</a>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 stagger-children">
+        {featuredProjects.map((project, i) => (
+          <ProjectCard
+            title={project.data.title}
+            summary={project.data.summary}
+            location={project.data.location}
+            category={project.data.category}
+            coverImage={project.data.coverImage}
+            href={`/projects/${project.id}`}
+            featured={i === 0}
+            index={i}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TAGLINE STRIP -->
+  <section class="relative py-16 md:py-24 surface-forest grain overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg class="absolute top-0 left-0 w-full h-full" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 300 Q 300 200, 600 280 T 1200 220 L 1200 400 L 0 400 Z" fill="var(--color-earth-400)" />
+      </svg>
+    </div>
+
+    <div class="relative container-x text-center">
+      <div class="font-[var(--font-display)] italic text-[var(--color-earth-300)] text-sm tracking-[0.3em] uppercase mb-6">Our promise</div>
+      <h2 class="text-[var(--color-cream)] max-w-4xl mx-auto leading-[1.1]">
+        <span class="font-normal">Environment.</span>
+        <span class="italic text-[var(--color-earth-300)]">Community.</span>
+        <span class="font-normal">Sustainability.</span>
+      </h2>
+      <p class="mt-8 max-w-2xl mx-auto text-[var(--color-cream)]/85 text-lg leading-relaxed">
+        Three words that guide every farm we visit, every training we run, and every recommendation we make.
+      </p>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>

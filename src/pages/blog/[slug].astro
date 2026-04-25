@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.coverImage}
+>
+  <article>
+    <!-- Hero -->
+    <header class="relative pt-16 md:pt-24 pb-12 surface-paper grain overflow-hidden">
+      <div class="container-x relative">
+        <div class="max-w-3xl mx-auto">
+          <a href="/blog" class="inline-flex items-center gap-2 text-sm text-[var(--color-forest-700)] hover:text-[var(--color-earth-500)] transition-colors mb-8">
+            <span>←</span> All articles
+          </a>
+
+          {post.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-6">
+              {post.data.tags.map((tag) => (
+                <span class="px-3 py-1 rounded-full text-xs font-medium bg-[var(--color-forest-50)] text-[var(--color-forest-700)]">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <h1 class="text-center md:text-left">{post.data.title}</h1>
+
+          <p class="mt-6 text-xl text-[var(--color-charcoal)]/80 leading-relaxed">
+            {post.data.description}
+          </p>
+
+          <div class="mt-10 pt-6 border-t border-[var(--color-sand)] flex items-center gap-4 text-sm text-[var(--color-charcoal)]/70">
+            <div class="w-10 h-10 rounded-full bg-[var(--color-forest-600)] text-[var(--color-cream)] flex items-center justify-center font-[var(--font-display)] text-sm">
+              {post.data.author.split(' ').map(n => n[0]).slice(0, 2).join('')}
+            </div>
+            <div>
+              <div class="font-medium text-[var(--color-ink)]">{post.data.author}</div>
+              <time datetime={post.data.pubDate.toISOString()}>
+                {formatDate(post.data.pubDate)}
+                {post.data.updatedDate && post.data.updatedDate.getTime() !== post.data.pubDate.getTime() && (
+                  <span class="ml-2 italic">(updated {formatDate(post.data.updatedDate)})</span>
+                )}
+              </time>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {post.data.coverImage && (
+      <div class="container-x mb-12">
+        <div class="max-w-5xl mx-auto aspect-[16/9] rounded-[var(--radius-xl)] overflow-hidden shadow-[var(--shadow-lift)]">
+          <img src={post.data.coverImage} alt="" class="w-full h-full object-cover" loading="eager" />
+        </div>
+      </div>
+    )}
+
+    <!-- Body -->
+    <section class="pb-20">
+      <div class="container-x">
+        <div class="max-w-3xl mx-auto prose-awamane text-lg text-[var(--color-charcoal)]/85 leading-relaxed [&>h2]:mt-12 [&>h2]:mb-5 [&>h3]:mt-10 [&>h3]:mb-4 [&>p]:mb-6 [&>ul]:mb-6 [&>ul]:pl-6 [&>ul]:list-disc [&>ol]:mb-6 [&>ol]:pl-6 [&>ol]:list-decimal [&>blockquote]:border-l-4 [&>blockquote]:border-[var(--color-earth-400)] [&>blockquote]:pl-6 [&>blockquote]:italic [&>blockquote]:font-[var(--font-display)] [&>blockquote]:text-xl [&>blockquote]:my-8 [&_a]:text-[var(--color-forest-700)] [&_a]:underline [&_a]:decoration-[var(--color-earth-300)] [&_a]:underline-offset-4 [&_a:hover]:text-[var(--color-earth-600)]">
+          <Content />
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <CTASection
+    title="Enjoyed this article?"
+    subtitle="We publish practical insights drawn from research and field experience. Get in touch to suggest topics or book a consultation."
+  />
+</BaseLayout>

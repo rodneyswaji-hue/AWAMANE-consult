@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import ServiceIcon from '../../components/ui/ServiceIcon.astro';
+import Eyebrow from '../../components/ui/Eyebrow.astro';
+import { getCollection } from 'astro:content';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Services"
+  description="Agricultural consultancy services across three integrated pillars — crops and soil management, livestock production, and water and land management."
+>
+  <PageHeader
+    eyebrow="Our services"
+    title="Three pillars. One integrated approach."
+    subtitle="African farms are systems — soil, livestock, and water cannot be managed in isolation. Our services are designed to work together, reinforcing each other on every farm we touch."
+  />
+
+  <section class="section">
+    <div class="container-x">
+      <div class="flex flex-col gap-16 lg:gap-24">
+        {services.map((service, i) => (
+          <article class="group">
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+              <!-- Image -->
+              <div class:list={[
+                'lg:col-span-6',
+                i % 2 === 1 ? 'lg:order-2' : ''
+              ]}>
+                <div class="relative aspect-[4/3] rounded-[var(--radius-xl)] overflow-hidden shadow-[var(--shadow-lift)]">
+                  {service.data.heroImage && (
+                    <img
+                      src={service.data.heroImage}
+                      alt={service.data.title}
+                      class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  )}
+                  <!-- Pillar number watermark -->
+                  <div class="absolute top-5 right-5 w-14 h-14 rounded-full bg-[var(--color-cream)]/95 backdrop-blur flex items-center justify-center font-[var(--font-display)] italic text-[var(--color-forest-700)] text-xl">
+                    0{i + 1}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Copy -->
+              <div class="lg:col-span-6">
+                <div class="flex items-center gap-3 mb-5">
+                  <div class="w-12 h-12 rounded-xl bg-[var(--color-forest-50)] text-[var(--color-forest-700)] flex items-center justify-center">
+                    <ServiceIcon icon={service.data.icon} class="w-6 h-6" />
+                  </div>
+                  <div class="eyebrow !mb-0">Pillar 0{i + 1}</div>
+                </div>
+
+                <h2 class="text-3xl md:text-4xl">{service.data.title}</h2>
+
+                <p class="mt-5 text-lg text-[var(--color-charcoal)]/80 leading-relaxed">
+                  {service.data.summary}
+                </p>
+
+                {service.data.features.length > 0 && (
+                  <ul class="mt-8 space-y-3">
+                    {service.data.features.slice(0, 4).map((feature) => (
+                      <li class="flex items-start gap-3 text-[var(--color-charcoal)]/85">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-earth-400)] mt-[0.7em] shrink-0"></span>
+                        <span class="text-[0.95rem]">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                <div class="mt-8">
+                  <a href={`/services/${service.id}`} class="btn btn-ghost">
+                    Explore this service
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>

@@ -1,0 +1,79 @@
+---
+// Photo marquee — continuous auto-scroll of field photos, showcasing breadth of work.
+// Duplicated content creates a seamless loop.
+
+const photos = [
+  { src: '/images/mango-orchard.jpg',               label: 'Mango orchards',           tag: 'Crops' },
+  { src: '/images/indigenous-poultry-1.jpg',        label: 'Indigenous poultry',       tag: 'Livestock' },
+  { src: '/images/water-harvesting-stream.jpg',     label: 'Water harvesting',         tag: 'Water' },
+  { src: '/images/mango-farmer-workshop.jpg',       label: 'Farmer training',          tag: 'Training' },
+  { src: '/images/drip-irrigated-vegetables.jpg',   label: 'Drip irrigation',          tag: 'Crops' },
+  { src: '/images/youth-gabion-training.jpg',       label: 'Youth gabion training',    tag: 'Community' },
+  { src: '/images/gabions-water-sand-harvesting.jpg', label: 'Gabion structures',      tag: 'Water' },
+  { src: '/images/indigenous-poultry-2.jpg',        label: 'Flock management',         tag: 'Livestock' },
+  { src: '/images/youth-sand-harvesting.jpg',       label: 'Youth employment',         tag: 'Community' },
+  { src: '/images/demo-plot-drip-vegetables.jpg',   label: 'Demonstration plots',      tag: 'Crops' },
+];
+
+// Duplicate for seamless infinite loop
+const loop = [...photos, ...photos];
+---
+
+<section class="marquee-section relative py-10 md:py-14 overflow-hidden border-t border-b border-[var(--color-sand)]/60 bg-[var(--color-cream)]">
+  <!-- Fade edges -->
+  <div class="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[var(--color-cream)] to-transparent z-10 pointer-events-none"></div>
+  <div class="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[var(--color-cream)] to-transparent z-10 pointer-events-none"></div>
+
+  <!-- Marquee track -->
+  <div class="marquee-track flex gap-4 md:gap-6 w-max">
+    {loop.map((photo, i) => (
+      <div
+        class="marquee-item relative shrink-0 w-56 md:w-72 aspect-[4/3] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-soft)] group"
+        aria-hidden={i >= photos.length ? 'true' : undefined}
+      >
+        <img
+          src={photo.src}
+          alt={i < photos.length ? photo.label : ''}
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)]/80 via-[var(--color-ink)]/10 to-transparent"></div>
+        <div class="absolute bottom-3 left-3 right-3 text-[var(--color-cream)]">
+          <div class="text-[0.6rem] tracking-[0.18em] uppercase text-[var(--color-earth-200)] font-medium">
+            {photo.tag}
+          </div>
+          <div class="text-sm font-medium leading-tight mt-0.5">
+            {photo.label}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Optional caption -->
+  <div class="container-x mt-8 md:mt-10 flex items-center justify-center">
+    <div class="flex items-center gap-4 text-xs md:text-sm text-[var(--color-charcoal)]/60 font-[var(--font-display)] italic">
+      <span class="block w-8 h-px bg-[var(--color-earth-300)]"></span>
+      <span>A glimpse of our work across Kenya</span>
+      <span class="block w-8 h-px bg-[var(--color-earth-300)]"></span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .marquee-track {
+    animation: marquee-scroll 48s linear infinite;
+  }
+  .marquee-section:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+</style>

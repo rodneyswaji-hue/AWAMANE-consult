@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import Eyebrow from '../../components/ui/Eyebrow.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const featured = allPosts[0];
+const rest = allPosts.slice(1);
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title="Field Notes"
+  description="Insights, field notes, and articles from Awamane Consult — practical agricultural knowledge from the farm to the research journal and back again."
+>
+  <PageHeader
+    eyebrow="Field notes"
+    title="Insights from the field and the research."
+    subtitle="Practical articles on crop and livestock management, climate-smart agriculture, water and soil conservation, and farmer enterprise."
+  />
+
+  <section class="section">
+    <div class="container-x">
+      {allPosts.length === 0 ? (
+        <!-- Empty state -->
+        <div class="max-w-2xl mx-auto text-center py-20">
+          <div class="w-20 h-20 mx-auto rounded-full bg-[var(--color-forest-50)] text-[var(--color-forest-700)] flex items-center justify-center mb-8">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25278V19.2528M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.2528C4.16789 18.4769 5.75351 18 7.5 18C9.24649 18 10.8321 18.4769 12 19.2528M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.2528C19.8321 18.4769 18.2465 18 16.5 18C14.7535 18 13.1679 18.4769 12 19.2528" />
+            </svg>
+          </div>
+          <h2 class="text-3xl">Articles coming soon.</h2>
+          <p class="mt-5 text-lg text-[var(--color-charcoal)]/75 leading-relaxed">
+            Our team is preparing a series of practical articles drawing on decades of research and field experience — from dairy cattle nutrition and poultry management to water harvesting techniques and climate-smart cropping.
+          </p>
+          <p class="mt-4 text-base text-[var(--color-charcoal)]/70 leading-relaxed">
+            Check back soon — or subscribe through our <a href="/contact" class="link-arrow">contact page</a> to be notified when we publish.
+          </p>
+        </div>
+      ) : (
+        <>
+          {featured && (
+            <!-- Featured article -->
+            <a href={`/blog/${featured.id}`} class="group block mb-16">
+              <article class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                <div class="lg:col-span-7">
+                  <div class="relative aspect-[16/10] rounded-[var(--radius-xl)] overflow-hidden shadow-[var(--shadow-lift)]">
+                    {featured.data.coverImage && (
+                      <img
+                        src={featured.data.coverImage}
+                        alt=""
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+                      />
+                    )}
+                  </div>
+                </div>
+                <div class="lg:col-span-5">
+                  <div class="eyebrow">Latest article</div>
+                  <h2 class="mt-5 text-3xl lg:text-4xl group-hover:text-[var(--color-forest-700)] transition-colors">
+                    {featured.data.title}
+                  </h2>
+                  <p class="mt-5 text-lg text-[var(--color-charcoal)]/75 leading-relaxed">
+                    {featured.data.description}
+                  </p>
+                  <div class="mt-6 flex items-center gap-4 text-sm text-[var(--color-charcoal)]/60">
+                    <span>{featured.data.author}</span>
+                    <span>·</span>
+                    <time datetime={featured.data.pubDate.toISOString()}>
+                      {formatDate(featured.data.pubDate)}
+                    </time>
+                  </div>
+                  <div class="mt-8 inline-flex items-center gap-2 text-[var(--color-forest-700)] font-medium">
+                    Read article
+                    <span class="transition-transform group-hover:translate-x-1">→</span>
+                  </div>
+                </div>
+              </article>
+            </a>
+          )}
+
+          {rest.length > 0 && (
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {rest.map((post) => (
+                <a href={`/blog/${post.id}`} class="group block">
+                  <article>
+                    {post.data.coverImage && (
+                      <div class="relative aspect-[4/3] rounded-[var(--radius-lg)] overflow-hidden mb-5">
+                        <img
+                          src={post.data.coverImage}
+                          alt=""
+                          class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1s] group-hover:scale-105"
+                        />
+                      </div>
+                    )}
+                    <div class="flex items-center gap-3 text-xs text-[var(--color-charcoal)]/60 mb-3">
+                      {post.data.tags.slice(0, 1).map((tag) => (
+                        <span class="uppercase tracking-wider text-[var(--color-forest-700)] font-semibold">{tag}</span>
+                      ))}
+                      <time datetime={post.data.pubDate.toISOString()}>
+                        {formatDate(post.data.pubDate)}
+                      </time>
+                    </div>
+                    <h3 class="text-xl group-hover:text-[var(--color-forest-700)] transition-colors">
+                      {post.data.title}
+                    </h3>
+                    <p class="mt-3 text-[var(--color-charcoal)]/75 leading-relaxed line-clamp-2">
+                      {post.data.description}
+                    </p>
+                  </article>
+                </a>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>

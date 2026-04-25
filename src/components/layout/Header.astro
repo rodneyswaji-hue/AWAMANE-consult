@@ -1,0 +1,205 @@
+---
+import { NAV_LINKS, SITE } from '../../config';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '' } = Astro.props;
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header id="site-header" class="sticky top-0 z-50 transition-all duration-300">
+  <div class="header-bg absolute inset-0 bg-[var(--color-cream)]/85 backdrop-blur-md border-b border-transparent transition-all duration-300"></div>
+
+  <nav class="relative container-x flex items-center justify-between py-4 md:py-5">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3 group shrink-0" aria-label={`${SITE.name} — home`}>
+      <img
+        src="/logo.png"
+        alt=""
+        width="48"
+        height="48"
+        class="w-10 h-10 md:w-12 md:h-12 object-contain transition-transform duration-500 group-hover:rotate-[8deg]"
+      />
+      <div class="flex flex-col leading-none">
+        <span class="font-[var(--font-display)] text-lg md:text-xl font-medium tracking-tight text-[var(--color-ink)]">
+          Awamane <span class="text-[var(--color-earth-500)]">Consult</span>
+        </span>
+        <span class="text-[0.65rem] md:text-[0.7rem] font-medium tracking-[0.15em] uppercase text-[var(--color-forest-600)] mt-1">
+          Environment · Community · Sustainability
+        </span>
+      </div>
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden lg:flex items-center gap-1">
+      {NAV_LINKS.map((link) => (
+        <li class="relative group">
+          <a
+            href={link.href}
+            class:list={[
+              'px-3 py-2 text-sm font-medium rounded-full transition-colors duration-200',
+              isActive(link.href)
+                ? 'text-[var(--color-forest-700)]'
+                : 'text-[var(--color-charcoal)] hover:text-[var(--color-forest-700)]',
+            ]}
+          >
+            {link.label}
+            {isActive(link.href) && (
+              <span class="absolute left-1/2 -translate-x-1/2 bottom-0.5 w-1 h-1 rounded-full bg-[var(--color-earth-400)]"></span>
+            )}
+          </a>
+
+          {link.children && (
+            <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[220px]">
+              <div class="bg-white rounded-2xl p-2 shadow-[var(--shadow-lift)] border border-[var(--color-sand)]/50">
+                {link.children.map((child) => (
+                  <a
+                    href={child.href}
+                    class="block px-4 py-2.5 text-sm rounded-xl hover:bg-[var(--color-cream)] transition-colors"
+                  >
+                    {child.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    <!-- CTA -->
+    <div class="hidden lg:flex items-center gap-3">
+      <a href="/contact" class="btn btn-primary text-sm">Book a Consultation</a>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-btn"
+      class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full hover:bg-[var(--color-sand)]/50 transition-colors"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <svg class="open-icon w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" d="M4 8h16M4 16h16" />
+      </svg>
+      <svg class="close-icon w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden hidden fixed inset-0 top-[72px] bg-[var(--color-cream)] z-40 overflow-y-auto"
+  >
+    <div class="container-x py-8">
+      <ul class="flex flex-col gap-1">
+        {NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                'block px-4 py-3.5 text-lg font-medium rounded-xl transition-colors',
+                isActive(link.href)
+                  ? 'bg-[var(--color-forest-600)] text-[var(--color-cream)]'
+                  : 'hover:bg-[var(--color-sand)]/40',
+              ]}
+            >
+              {link.label}
+            </a>
+            {link.children && (
+              <ul class="pl-4 mt-1 mb-2 flex flex-col gap-1 border-l-2 border-[var(--color-earth-300)]/60 ml-4">
+                {link.children.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      class="block px-4 py-2 text-sm text-[var(--color-charcoal)] hover:text-[var(--color-forest-700)] rounded-lg"
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+      <div class="mt-8 pt-8 border-t border-[var(--color-sand)]">
+        <a href="/contact" class="btn btn-primary w-full text-base">Book a Consultation</a>
+        <div class="mt-6 flex flex-col gap-2 text-sm text-[var(--color-charcoal)]">
+          <a href={SITE.phoneHref} class="flex items-center gap-2 hover:text-[var(--color-forest-700)]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" d="M3 5a2 2 0 012-2h2l2 5-2 1a11 11 0 005 5l1-2 5 2v2a2 2 0 01-2 2A16 16 0 013 5z" />
+            </svg>
+            {SITE.phone}
+          </a>
+          <a href={SITE.emailHref} class="flex items-center gap-2 hover:text-[var(--color-forest-700)]">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" d="M3 8l9 6 9-6M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z" />
+            </svg>
+            {SITE.email}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+  const bg = header?.querySelector('.header-bg');
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = btn?.querySelector('.open-icon');
+  const closeIcon = btn?.querySelector('.close-icon');
+
+  // Shadow on scroll
+  const onScroll = () => {
+    if (!bg) return;
+    if (window.scrollY > 8) {
+      bg.classList.add('shadow-[var(--shadow-soft)]', '!border-[var(--color-sand)]/60');
+    } else {
+      bg.classList.remove('shadow-[var(--shadow-soft)]', '!border-[var(--color-sand)]/60');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile menu toggle
+  btn?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    if (isOpen) {
+      menu?.classList.add('hidden');
+      document.body.style.overflow = '';
+      openIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Open menu');
+    } else {
+      menu?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      openIcon?.classList.add('hidden');
+      closeIcon?.classList.remove('hidden');
+      btn.setAttribute('aria-expanded', 'true');
+      btn.setAttribute('aria-label', 'Close menu');
+    }
+  });
+
+  // Close mobile menu on link click
+  menu?.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      document.body.style.overflow = '';
+      openIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      btn?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

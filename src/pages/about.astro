@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+import { getCollection, render } from 'astro:content';
+
+const teamEntries = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+const lead = teamEntries.find((t) => t.data.lead);
+const associates = teamEntries.filter((t) => !t.data.lead);
+
+// Render the lead's bio markdown
+let LeadBio: any = null;
+if (lead) {
+  const rendered = await render(lead);
+  LeadBio = rendered.Content;
+}
+---
+
+<BaseLayout
+  title="About"
+  description="Awamane Consult Ltd is a Kenyan agricultural consultancy led by Prof. Titus Ikusya Kanui — a professor of animal science with over four decades of experience in research, teaching, and field practice."
+>
+  <PageHeader
+    eyebrow="About Awamane Consult"
+    title="Bringing research out of the lecture hall and onto the farm."
+    subtitle="We are a Kenyan agricultural consultancy founded on a simple idea — that the best research is the research that reaches the people who actually grow our food."
+  />
+
+  <!-- MISSION / INTRO -->
+  <section class="section">
+    <div class="container-x">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <div class="lg:col-span-5">
+          <Eyebrow>Our mission</Eyebrow>
+          <h2 class="mt-5">
+            To make world-class agricultural science accessible to every Kenyan farmer.
+          </h2>
+        </div>
+
+        <div class="lg:col-span-7 text-lg text-[var(--color-charcoal)]/80 leading-relaxed space-y-5">
+          <p>
+            Too much of the best agricultural research in Kenya stays inside universities and research stations. The farmers who would benefit most — smallholders in semi-arid counties, women's groups, young people trying to build livelihoods — rarely see the inside of a scientific journal.
+          </p>
+          <p>
+            Awamane Consult exists to close that gap. We translate decades of academic and applied research into practical, affordable, site-specific advice that works on real farms under real conditions.
+          </p>
+          <p>
+            We work across three integrated pillars — <strong>crops and soil management</strong>, <strong>livestock production</strong>, and <strong>water and land management</strong> — and we bring all three together through <strong>training</strong>, because lasting change depends on building local skill.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR APPROACH -->
+  <section class="section bg-white border-y border-[var(--color-sand)]/50">
+    <div class="container-x">
+      <div class="max-w-3xl mb-14">
+        <Eyebrow>Our approach</Eyebrow>
+        <h2 class="mt-5">How we work</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-12 stagger-children">
+        <div class="relative">
+          <div class="font-[var(--font-display)] text-6xl text-[var(--color-earth-300)] italic leading-none mb-5">01</div>
+          <h3 class="text-xl mb-3">Site-specific first</h3>
+          <p class="text-[var(--color-charcoal)]/75 leading-relaxed">
+            We start every engagement with an on-the-ground assessment. Soil conditions, climate, existing enterprises, local markets, and the farmer's own goals all shape the recommendations we make.
+          </p>
+        </div>
+
+        <div class="relative">
+          <div class="font-[var(--font-display)] text-6xl text-[var(--color-earth-300)] italic leading-none mb-5">02</div>
+          <h3 class="text-xl mb-3">Eco-friendly by default</h3>
+          <p class="text-[var(--color-charcoal)]/75 leading-relaxed">
+            Sustainability isn't a premium service — it's how we practise. Climate-smart agriculture, integrated pest management, and community-owned infrastructure run through everything we do.
+          </p>
+        </div>
+
+        <div class="relative">
+          <div class="font-[var(--font-display)] text-6xl text-[var(--color-earth-300)] italic leading-none mb-5">03</div>
+          <h3 class="text-xl mb-3">Technology where it helps</h3>
+          <p class="text-[var(--color-charcoal)]/75 leading-relaxed">
+            We work with leading agricultural institutions and input suppliers to bring appropriate technology — precision irrigation, modern breeding, soil analytics — to farms that can genuinely benefit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD CONSULTANT -->
+  {lead && (
+    <section class="section surface-paper grain">
+      <div class="container-x">
+        <div class="grid lg:grid-cols-12 gap-12 items-start">
+          <!-- Visual -->
+          <div class="lg:col-span-4">
+            <div class="sticky top-28">
+              <div class="relative max-w-sm">
+                <div class="aspect-[4/5] rounded-[var(--radius-xl)] overflow-hidden shadow-[var(--shadow-lift)] bg-gradient-to-br from-[var(--color-forest-700)] to-[var(--color-forest-900)] relative">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-[var(--color-cream)] text-center">
+                      <div class="font-[var(--font-display)] text-[8rem] leading-none opacity-15">TK</div>
+                    </div>
+                  </div>
+                  <svg class="absolute bottom-0 right-0 w-48 h-48 text-[var(--color-earth-400)] opacity-20" viewBox="0 0 200 200" aria-hidden="true">
+                    <path d="M20 180 C 20 80, 80 20, 180 20 C 180 120, 120 180, 20 180 Z" fill="currentColor" />
+                  </svg>
+                </div>
+                <div class="absolute -top-3 -right-3 bg-[var(--color-cream)] rounded-full px-4 py-2 text-xs font-medium text-[var(--color-forest-700)] shadow-[var(--shadow-soft)] border border-[var(--color-sand)]">
+                  {lead.data.credentials}
+                </div>
+              </div>
+
+              <!-- Expertise tags -->
+              <div class="mt-8">
+                <div class="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--color-forest-700)] mb-4">Areas of expertise</div>
+                <div class="flex flex-wrap gap-2">
+                  {lead.data.expertise.map((e) => (
+                    <span class="px-3 py-1.5 rounded-full text-xs bg-white border border-[var(--color-sand)] text-[var(--color-charcoal)]">
+                      {e}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bio -->
+          <div class="lg:col-span-8">
+            <Eyebrow>Lead consultant</Eyebrow>
+            <h2 class="mt-5">{lead.data.name}</h2>
+            <p class="mt-3 text-lg text-[var(--color-earth-600)] font-[var(--font-display)] italic">
+              {lead.data.role}
+            </p>
+
+            <div class="mt-8 prose-awamane text-[var(--color-charcoal)]/85 text-lg leading-relaxed space-y-5 [&>p]:mb-5">
+              <LeadBio />
+            </div>
+
+            <div class="mt-10 pt-8 border-t border-[var(--color-sand)] grid sm:grid-cols-3 gap-6">
+              <div>
+                <div class="font-[var(--font-display)] text-3xl text-[var(--color-forest-700)]">40+</div>
+                <div class="mt-1 text-sm text-[var(--color-charcoal)]/70">Years in academia<br />and research</div>
+              </div>
+              <div>
+                <div class="font-[var(--font-display)] text-3xl text-[var(--color-forest-700)]">60+</div>
+                <div class="mt-1 text-sm text-[var(--color-charcoal)]/70">Peer-reviewed<br />publications</div>
+              </div>
+              <div>
+                <div class="font-[var(--font-display)] text-3xl text-[var(--color-forest-700)]">2</div>
+                <div class="mt-1 text-sm text-[var(--color-charcoal)]/70">Leading Kenyan<br />universities</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ASSOCIATES -->
+  <section class="section">
+    <div class="container-x">
+      <div class="max-w-3xl mb-14">
+        <Eyebrow>The team</Eyebrow>
+        <h2 class="mt-5">Our associate consultants</h2>
+        <p class="mt-5 text-lg text-[var(--color-charcoal)]/75 leading-relaxed">
+          Prof. Kanui leads a network of experienced agronomists, livestock specialists, and water and environment experts. Full team profiles coming soon.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {associates.map((member) => (
+          <div class="p-8 rounded-[var(--radius-xl)] bg-white border border-[var(--color-sand)]/60 shadow-[var(--shadow-soft)]">
+            <div class="flex items-start gap-5">
+              <div class="w-14 h-14 rounded-full bg-[var(--color-forest-100)] text-[var(--color-forest-700)] flex items-center justify-center shrink-0">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                  <circle cx="12" cy="8" r="4" />
+                  <path stroke-linecap="round" d="M4 22c0-4 4-7 8-7s8 3 8 7" />
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl">{member.data.name}</h3>
+                <p class="text-sm text-[var(--color-earth-600)] font-[var(--font-display)] italic mt-1">
+                  {member.data.role}
+                </p>
+                <div class="mt-4 flex flex-wrap gap-2">
+                  {member.data.expertise.map((e) => (
+                    <span class="px-2.5 py-1 rounded-full text-xs bg-[var(--color-cream)] border border-[var(--color-sand)] text-[var(--color-charcoal)]/80">
+                      {e}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section surface-forest grain relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg class="absolute top-10 left-10 w-96 h-96" viewBox="0 0 200 200" aria-hidden="true">
+        <path d="M20 180 C 20 80, 80 20, 180 20 C 180 120, 120 180, 20 180 Z" fill="var(--color-earth-400)" />
+      </svg>
+    </div>
+
+    <div class="container-x relative">
+      <div class="max-w-3xl mb-16">
+        <div class="eyebrow !text-[var(--color-earth-300)]">Our values</div>
+        <h2 class="mt-5 text-[var(--color-cream)]">
+          Three words, three commitments.
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-10 lg:gap-16">
+        <div>
+          <div class="font-[var(--font-display)] text-4xl text-[var(--color-earth-300)] italic mb-4">Environment</div>
+          <p class="text-[var(--color-cream)]/85 leading-relaxed">
+            Every recommendation we make protects or improves the natural systems the farm depends on — soil, water, biodiversity, climate. Productivity that damages the environment is borrowed, not earned.
+          </p>
+        </div>
+        <div>
+          <div class="font-[var(--font-display)] text-4xl text-[var(--color-earth-300)] italic mb-4">Community</div>
+          <p class="text-[var(--color-cream)]/85 leading-relaxed">
+            We work with farmers, not for them. Our training programmes, demonstration plots, and infrastructure projects are designed to build local capacity that outlasts any single consultancy engagement.
+          </p>
+        </div>
+        <div>
+          <div class="font-[var(--font-display)] text-4xl text-[var(--color-earth-300)] italic mb-4">Sustainability</div>
+          <p class="text-[var(--color-cream)]/85 leading-relaxed">
+            We measure success over decades, not seasons. The farms we advise should be more productive, more profitable, and more resilient in ten years than they are today — and still improving.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title="Work with us"
+    subtitle="Whether you're planning a single farm visit or a multi-year programme, we'd love to hear from you."
+  />
+</BaseLayout>

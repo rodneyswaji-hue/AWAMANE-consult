@@ -1,0 +1,276 @@
+---
+// Home page hero — layered photo collage + animated cycling headline
+---
+
+<section class="relative overflow-hidden pt-6 md:pt-10 pb-16 md:pb-24">
+  <!-- Ambient background shapes -->
+  <div class="absolute inset-0 surface-paper" aria-hidden="true"></div>
+  <div class="absolute top-20 -right-32 w-[32rem] h-[32rem] rounded-full bg-gradient-to-br from-[var(--color-forest-200)]/50 to-transparent blur-3xl" aria-hidden="true"></div>
+  <div class="absolute -bottom-32 -left-24 w-[28rem] h-[28rem] rounded-full bg-gradient-to-tr from-[var(--color-earth-100)]/70 to-transparent blur-3xl" aria-hidden="true"></div>
+
+  <div class="relative container-x">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <!-- ============ LEFT: Copy ============ -->
+      <div class="lg:col-span-7 relative z-10">
+        <div class="animate-fade-up">
+          <div class="eyebrow">Agricultural consultancy · Kenya</div>
+        </div>
+
+        <h1 class="mt-7 animate-fade-up" style="transition-delay: 80ms">
+          Evidence-based
+          <span class="relative inline-block italic text-[var(--color-forest-600)]">
+            agriculture
+            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0 6 Q 50 0, 100 5 T 200 4" fill="none" stroke="var(--color-earth-400)" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </span>
+          for Kenya's
+          <span class="rotator relative inline-block align-baseline text-[var(--color-forest-600)]" aria-label="farms, cooperatives, communities, and NGOs">
+            <span class="rotator-word" data-visible="true">farms</span>
+            <span class="rotator-word">cooperatives</span>
+            <span class="rotator-word">communities</span>
+            <span class="rotator-word">NGOs</span>
+            <span class="rotator-spacer" aria-hidden="true">cooperatives</span>
+            <span class="rotator-underline" aria-hidden="true"></span>
+          </span>.
+        </h1>
+
+        <p class="mt-8 text-lg md:text-xl text-[var(--color-charcoal)]/80 max-w-2xl leading-relaxed animate-fade-up" style="transition-delay: 160ms">
+          Awamane Consult Ltd brings decades of academic and field expertise directly to the people who feed Kenya — from smallholder farmers to commercial operations, NGOs, and government programmes.
+        </p>
+
+        <div class="mt-10 flex flex-wrap gap-4 animate-fade-up" style="transition-delay: 240ms">
+          <a href="/services" class="btn btn-primary">Explore our services</a>
+          <a href="/contact" class="btn btn-ghost">Book a consultation</a>
+        </div>
+
+        <!-- Credibility strip -->
+        <div class="mt-16 pt-10 border-t border-[var(--color-sand)] grid grid-cols-3 gap-4 md:gap-8 animate-fade-up" style="transition-delay: 320ms">
+          <div>
+            <div class="font-[var(--font-display)] text-3xl md:text-4xl text-[var(--color-forest-700)]">40+</div>
+            <div class="mt-1 text-xs md:text-sm text-[var(--color-charcoal)]/70 leading-tight">Years of academic<br />and field experience</div>
+          </div>
+          <div>
+            <div class="font-[var(--font-display)] text-3xl md:text-4xl text-[var(--color-forest-700)]">60+</div>
+            <div class="mt-1 text-xs md:text-sm text-[var(--color-charcoal)]/70 leading-tight">Peer-reviewed<br />publications</div>
+          </div>
+          <div>
+            <div class="font-[var(--font-display)] text-3xl md:text-4xl text-[var(--color-forest-700)]">3</div>
+            <div class="mt-1 text-xs md:text-sm text-[var(--color-charcoal)]/70 leading-tight">Core service<br />pillars</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ RIGHT: Photo collage ============ -->
+      <div class="lg:col-span-5 relative animate-fade-in" style="transition-delay: 200ms">
+        <div class="relative mx-auto max-w-xl lg:max-w-none aspect-[5/4] sm:aspect-[4/3] md:aspect-[9/10]">
+
+          <!-- Main image (largest, central-right) -->
+          <div class="absolute top-0 right-0 w-[72%] h-[78%] rounded-[var(--radius-xl)] overflow-hidden shadow-[var(--shadow-deep)] z-20 photo-float-1">
+            <img
+              src="/images/mango-orchard.jpg"
+              alt="Mango orchard in Eastern Kenya"
+              class="w-full h-full object-cover animate-slow-zoom"
+              loading="eager"
+              width="640"
+              height="800"
+            />
+            <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[var(--color-ink)]/70 to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-3 left-3 text-[var(--color-cream)] text-[0.65rem] tracking-[0.15em] uppercase font-medium">
+              <span class="opacity-70">Crops</span> · <span class="text-[var(--color-earth-200)]">Mango orchard</span>
+            </div>
+          </div>
+
+          <!-- Secondary: Water (top-left) -->
+          <div class="absolute top-[8%] left-0 w-[38%] h-[32%] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lift)] z-30 photo-float-2 border-4 border-[var(--color-cream)]">
+            <img
+              src="/images/gabions-water-sand-harvesting.jpg"
+              alt="Gabions for water harvesting"
+              class="w-full h-full object-cover"
+              loading="eager"
+              width="300"
+              height="260"
+            />
+            <div class="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[var(--color-ink)]/70 to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-2 left-2 text-[var(--color-cream)] text-[0.6rem] tracking-[0.15em] uppercase font-medium">
+              <span class="text-[var(--color-water-200)]">Water</span>
+            </div>
+          </div>
+
+          <!-- Tertiary: Livestock (bottom-left) -->
+          <div class="absolute bottom-[6%] left-[4%] w-[44%] h-[38%] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lift)] z-30 photo-float-3 border-4 border-[var(--color-cream)]">
+            <img
+              src="/images/indigenous-poultry-2.jpg"
+              alt="Indigenous poultry"
+              class="w-full h-full object-cover"
+              loading="eager"
+              width="320"
+              height="280"
+            />
+            <div class="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[var(--color-ink)]/70 to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-2 left-2 text-[var(--color-cream)] text-[0.6rem] tracking-[0.15em] uppercase font-medium">
+              <span class="text-[var(--color-earth-200)]">Livestock</span>
+            </div>
+          </div>
+
+          <!-- Fourth: Training (bottom-right, smallest) -->
+          <div class="absolute bottom-0 right-[8%] w-[32%] h-[28%] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lift)] z-40 photo-float-4 border-4 border-[var(--color-cream)]">
+            <img
+              src="/images/mango-farmer-workshop.jpg"
+              alt="Farmer training workshop"
+              class="w-full h-full object-cover"
+              loading="eager"
+              width="240"
+              height="200"
+            />
+            <div class="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[var(--color-ink)]/70 to-transparent pointer-events-none"></div>
+            <div class="absolute bottom-2 left-2 text-[var(--color-cream)] text-[0.6rem] tracking-[0.15em] uppercase font-medium">
+              <span class="text-[var(--color-earth-200)]">Training</span>
+            </div>
+          </div>
+
+          <!-- Floating card: Prof. Kanui credential -->
+          <div class="absolute top-[32%] right-[-2%] md:right-[-4%] lg:right-[-6%] bg-[var(--color-cream)] rounded-[var(--radius-lg)] p-4 shadow-[var(--shadow-lift)] border border-[var(--color-sand)]/50 max-w-[13.5rem] z-50 hover:translate-y-[-4px] transition-transform duration-300">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-[var(--color-forest-600)] text-[var(--color-cream)] flex items-center justify-center font-[var(--font-display)] text-xs shrink-0">TK</div>
+              <div class="text-[0.7rem]">
+                <div class="font-semibold text-[var(--color-ink)] leading-tight">Prof. Titus Kanui</div>
+                <div class="text-[var(--color-charcoal)]/70 leading-tight mt-0.5">BVM, PhD · Lead Consultant</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rotating tagline badge -->
+          <div class="absolute top-[-2%] right-[-4%] md:right-[2%] bg-[var(--color-earth-400)] rounded-full w-24 h-24 md:w-28 md:h-28 flex items-center justify-center text-[var(--color-ink)] shadow-[var(--shadow-lift)] z-50 badge-slow-spin">
+            <div class="text-center">
+              <div class="font-[var(--font-display)] italic text-[0.65rem] md:text-[0.7rem] leading-tight">Rooted in<br />research</div>
+              <div class="my-1 mx-auto w-5 h-px bg-[var(--color-ink)]/40"></div>
+              <div class="font-[var(--font-display)] italic text-[0.65rem] md:text-[0.7rem] leading-tight">Grown in<br />the field</div>
+            </div>
+          </div>
+
+          <!-- Decorative leaf behind everything -->
+          <svg
+            class="absolute bottom-[-8%] right-[20%] w-40 h-40 md:w-52 md:h-52 text-[var(--color-forest-300)] opacity-20 z-10 pointer-events-none"
+            viewBox="0 0 200 200"
+            aria-hidden="true"
+          >
+            <path d="M20 180 C 20 80, 80 20, 180 20 C 180 120, 120 180, 20 180 Z" fill="currentColor" />
+            <path d="M30 170 L 170 30" stroke="var(--color-forest-600)" stroke-width="1.5" fill="none" opacity="0.4" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Rotating headline word */
+  .rotator-spacer {
+    visibility: hidden;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .rotator-word {
+    position: absolute;
+    inset: 0;
+    display: inline-flex;
+    align-items: baseline;
+    opacity: 0;
+    transform: translateY(0.35em);
+    transition:
+      opacity 500ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    white-space: nowrap;
+  }
+  .rotator-word[data-visible="true"] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .rotator-word[data-leaving="true"] {
+    opacity: 0;
+    transform: translateY(-0.35em);
+  }
+  .rotator-underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.05em;
+    height: 2px;
+    background: var(--color-earth-400);
+    transform-origin: left center;
+    animation: rotator-underline-draw 2800ms ease-in-out infinite;
+  }
+  @keyframes rotator-underline-draw {
+    0%   { transform: scaleX(0); transform-origin: left center; }
+    45%  { transform: scaleX(1); transform-origin: left center; }
+    55%  { transform: scaleX(1); transform-origin: right center; }
+    100% { transform: scaleX(0); transform-origin: right center; }
+  }
+
+  /* Floating photos */
+  @keyframes photo-drift-1 {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(0, -6px); }
+  }
+  @keyframes photo-drift-2 {
+    0%, 100% { transform: translate(0, 0) rotate(-2deg); }
+    50%      { transform: translate(0, -8px) rotate(-2deg); }
+  }
+  @keyframes photo-drift-3 {
+    0%, 100% { transform: translate(0, 0) rotate(2deg); }
+    50%      { transform: translate(0, -5px) rotate(2deg); }
+  }
+  @keyframes photo-drift-4 {
+    0%, 100% { transform: translate(0, 0) rotate(-3deg); }
+    50%      { transform: translate(0, -7px) rotate(-3deg); }
+  }
+  .photo-float-1 { animation: photo-drift-1 7s ease-in-out infinite; }
+  .photo-float-2 { animation: photo-drift-2 8s ease-in-out infinite 0.3s; transform: rotate(-2deg); }
+  .photo-float-3 { animation: photo-drift-3 9s ease-in-out infinite 0.6s; transform: rotate(2deg); }
+  .photo-float-4 { animation: photo-drift-4 6.5s ease-in-out infinite 0.9s; transform: rotate(-3deg); }
+
+  /* Rotating badge */
+  @keyframes badge-slow-spin {
+    0%   { transform: rotate(-8deg); }
+    50%  { transform: rotate(-4deg); }
+    100% { transform: rotate(-8deg); }
+  }
+  .badge-slow-spin {
+    animation: badge-slow-spin 5s ease-in-out infinite;
+  }
+  .badge-slow-spin:hover {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo-float-1, .photo-float-2, .photo-float-3, .photo-float-4,
+    .badge-slow-spin, .rotator-underline {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const words = document.querySelectorAll<HTMLElement>('.rotator-word:not(.rotator-spacer)');
+    if (words.length < 2) return;
+
+    let current = 0;
+    const cycle = () => {
+      const outgoing = words[current];
+      current = (current + 1) % words.length;
+      const incoming = words[current];
+
+      outgoing.setAttribute('data-leaving', 'true');
+      outgoing.removeAttribute('data-visible');
+
+      setTimeout(() => {
+        outgoing.removeAttribute('data-leaving');
+        incoming.setAttribute('data-visible', 'true');
+      }, 150);
+    };
+
+    setInterval(cycle, 2800);
+  })();
+</script>

@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/sections/PageHeader.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import Eyebrow from '../components/ui/Eyebrow.astro';
+---
+
+<BaseLayout
+  title="Training"
+  description="On-farm workshops and commissioned training programmes from Awamane Consult — bridging academic research and practical field skills for farmers, youth, and organizations."
+>
+  <PageHeader
+    eyebrow="Training & workshops"
+    title="Bridging academia and the field."
+    subtitle="Training is not an add-on to our consultancy — it's at the centre of it. Our founder spent four decades teaching the next generation of Kenyan agricultural scientists. We now bring that same depth of knowledge directly to farmers, cooperatives, and organizations."
+  />
+
+  <!-- WHAT WE TRAIN ON -->
+  <section class="section">
+    <div class="container-x">
+      <div class="max-w-3xl mb-16">
+        <Eyebrow>Curriculum areas</Eyebrow>
+        <h2 class="mt-5">What we train on</h2>
+        <p class="mt-5 text-lg text-[var(--color-charcoal)]/75 leading-relaxed">
+          Our training programmes are modular — we combine the topics that matter most for your farm, your farmer group, or your organization's programme.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+        {[
+          {
+            title: 'Crop Production',
+            description: 'Seed selection, soil preparation, agronomic practices, harvesting, and post-harvest handling for staple crops and horticulture.',
+            color: 'forest'
+          },
+          {
+            title: 'Livestock Best Practices',
+            description: 'Housing, nutrition, breeding, disease prevention, and record-keeping for cattle, poultry, goats, and other species.',
+            color: 'earth'
+          },
+          {
+            title: 'Soil Health & Fertility',
+            description: 'Soil testing, nutrient management, composting, cover cropping, and protecting long-term soil productivity.',
+            color: 'forest'
+          },
+          {
+            title: 'Water Harvesting',
+            description: 'Gabion construction, run-off management, stream-bed structures, and household rainwater harvesting.',
+            color: 'water'
+          },
+          {
+            title: 'Drip Irrigation',
+            description: 'System design, installation, daily operation, and maintenance — from kitchen gardens to commercial vegetable plots.',
+            color: 'water'
+          },
+          {
+            title: 'Integrated Pest Management',
+            description: 'Identifying pests and diseases, choosing the right control strategies, and reducing reliance on agrochemicals.',
+            color: 'forest'
+          },
+          {
+            title: 'Agribusiness & Marketing',
+            description: 'Farm as a business — record-keeping, costing, market access, value addition, and cooperative formation.',
+            color: 'earth'
+          },
+          {
+            title: 'Youth & Women Empowerment',
+            description: 'Enterprise-building, group leadership, and practical skills that create livelihoods in rural communities.',
+            color: 'earth'
+          },
+          {
+            title: 'Climate-Smart Agriculture',
+            description: 'Adapting farming systems to a changing climate — drought-tolerant varieties, diversification, and resilience.',
+            color: 'forest'
+          },
+        ].map((topic) => (
+          <div class="p-7 rounded-[var(--radius-lg)] bg-white border border-[var(--color-sand)]/60 hover:border-[var(--color-forest-300)]/50 hover:shadow-[var(--shadow-lift)] transition-all duration-300">
+            <div class:list={[
+              'w-10 h-1 rounded-full mb-5',
+              topic.color === 'forest' && 'bg-[var(--color-forest-500)]',
+              topic.color === 'earth' && 'bg-[var(--color-earth-400)]',
+              topic.color === 'water' && 'bg-[var(--color-water-400)]',
+            ]}></div>
+            <h3 class="text-xl">{topic.title}</h3>
+            <p class="mt-3 text-sm text-[var(--color-charcoal)]/75 leading-relaxed">
+              {topic.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO FORMATS -->
+  <section class="section bg-white border-y border-[var(--color-sand)]/50">
+    <div class="container-x">
+      <div class="max-w-3xl mb-14">
+        <Eyebrow>Two formats</Eyebrow>
+        <h2 class="mt-5">How we deliver training</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- On-farm workshops -->
+        <div class="relative rounded-[var(--radius-xl)] overflow-hidden group">
+          <div class="aspect-[4/3] relative">
+            <img
+              src="/images/mango-farmer-workshop.jpg"
+              alt="Mango farmers after a training workshop"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)]/90 via-[var(--color-ink)]/40 to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 p-7 text-[var(--color-cream)]">
+              <div class="text-xs tracking-[0.2em] uppercase text-[var(--color-earth-200)] mb-2">Format 01</div>
+              <h3 class="text-[var(--color-cream)] text-2xl">On-farm workshops</h3>
+              <p class="mt-3 text-sm text-[var(--color-cream)]/90 leading-relaxed">
+                Hands-on sessions for farmer groups, cooperatives, and demonstration farms. Delivered on your land, using your crops and livestock as the teaching material.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Commissioned training -->
+        <div class="relative rounded-[var(--radius-xl)] overflow-hidden group">
+          <div class="aspect-[4/3] relative">
+            <img
+              src="/images/youth-gabion-training.jpg"
+              alt="Youth training in gabion construction"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)]/90 via-[var(--color-ink)]/40 to-transparent"></div>
+            <div class="absolute inset-x-0 bottom-0 p-7 text-[var(--color-cream)]">
+              <div class="text-xs tracking-[0.2em] uppercase text-[var(--color-earth-200)] mb-2">Format 02</div>
+              <h3 class="text-[var(--color-cream)] text-2xl">Commissioned training</h3>
+              <p class="mt-3 text-sm text-[var(--color-cream)]/90 leading-relaxed">
+                Bespoke programmes for NGOs, counties, and companies. Multi-day curricula, train-the-trainer packages, and long-running capacity-building engagements.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Who we've trained -->
+      <div class="mt-16 grid md:grid-cols-4 gap-8">
+        {[
+          { number: '500+', label: 'Farmers trained' },
+          { number: '40+', label: 'Workshops delivered' },
+          { number: '15+', label: 'Farmer groups supported' },
+          { number: '4', label: 'Counties reached' },
+        ].map((stat) => (
+          <div class="text-center">
+            <div class="font-[var(--font-display)] text-4xl md:text-5xl text-[var(--color-forest-700)]">
+              {stat.number}
+            </div>
+            <div class="mt-2 text-sm text-[var(--color-charcoal)]/70">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+      <div class="mt-4 text-center text-xs text-[var(--color-charcoal)]/50 italic">
+        Figures are illustrative placeholders — actual numbers to be updated.
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section surface-paper grain">
+    <div class="container-x">
+      <div class="max-w-3xl mb-14">
+        <Eyebrow>Working with us</Eyebrow>
+        <h2 class="mt-5">How a training engagement works</h2>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-8">
+        {[
+          { num: '01', title: 'Initial conversation', desc: 'We understand your group, your goals, and the problem you want to solve.' },
+          { num: '02', title: 'Curriculum design', desc: 'We propose a training plan — topics, duration, format, materials, and cost.' },
+          { num: '03', title: 'Delivery', desc: 'Hands-on, interactive sessions — on your farm, at a central venue, or at our demonstration sites.' },
+          { num: '04', title: 'Follow-up', desc: 'We stay in touch to support implementation and answer questions as they come up.' },
+        ].map((step) => (
+          <div class="relative">
+            <div class="font-[var(--font-display)] italic text-5xl text-[var(--color-earth-300)] leading-none mb-4">
+              {step.num}
+            </div>
+            <h3 class="text-lg mb-3">{step.title}</h3>
+            <p class="text-sm text-[var(--color-charcoal)]/75 leading-relaxed">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title="Let's design a training programme for your team."
+    subtitle="Whether you're a farmer cooperative, an NGO running a field programme, or a county government, we'd love to hear what you're trying to achieve."
+    primaryLabel="Request Training"
+    primaryHref="/contact?subject=training"
+    secondaryLabel="See our projects"
+    secondaryHref="/projects"
+  />
+</BaseLayout>

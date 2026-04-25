@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found" noIndex={true}>
+  <section class="section min-h-[60vh] flex items-center">
+    <div class="container-x text-center">
+      <div class="font-[var(--font-display)] italic text-[var(--color-earth-300)] text-[10rem] md:text-[14rem] leading-none">
+        404
+      </div>
+      <h1 class="mt-4">This path doesn't lead anywhere.</h1>
+      <p class="mt-6 text-lg text-[var(--color-charcoal)]/75 max-w-md mx-auto">
+        The page you're looking for has moved or doesn't exist. Let's get you back on track.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href="/" class="btn btn-primary">Back to home</a>
+        <a href="/services" class="btn btn-ghost">Explore services</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

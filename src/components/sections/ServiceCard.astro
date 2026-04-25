@@ -1,0 +1,41 @@
+---
+import ServiceIcon from '../ui/ServiceIcon.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+  icon: string;
+  href: string;
+  index?: number;
+}
+
+const { title, summary, icon, href, index = 0 } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group relative block bg-white rounded-[var(--radius-xl)] p-8 lg:p-10 border border-[var(--color-sand)]/60 hover:border-[var(--color-forest-300)]/60 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-lift)] transition-all duration-300 overflow-hidden"
+  style={`transition-delay: ${index * 80}ms`}
+>
+  <!-- Decorative corner accent -->
+  <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[var(--color-forest-50)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-bl-[var(--radius-xl)]"></div>
+
+  <div class="relative">
+    <div class="w-14 h-14 rounded-2xl bg-[var(--color-forest-50)] text-[var(--color-forest-600)] flex items-center justify-center group-hover:bg-[var(--color-forest-600)] group-hover:text-[var(--color-cream)] transition-colors duration-300">
+      <ServiceIcon icon={icon} class="w-7 h-7" />
+    </div>
+
+    <h3 class="mt-6 text-2xl">
+      {title}
+    </h3>
+
+    <p class="mt-4 text-[var(--color-charcoal)]/75 leading-relaxed">
+      {summary}
+    </p>
+
+    <div class="mt-8 inline-flex items-center gap-2 text-sm font-medium text-[var(--color-forest-700)] group-hover:text-[var(--color-earth-500)] transition-colors">
+      Explore this service
+      <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+    </div>
+  </div>
+</a>

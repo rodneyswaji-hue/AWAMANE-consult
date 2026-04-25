@@ -1,0 +1,351 @@
+@import "tailwindcss";
+
+/* ============================================
+   AWAMANE CONSULT — DESIGN SYSTEM
+   Colors pulled directly from the brand logo
+   ============================================ */
+
+@theme {
+  /* Brand palette */
+  --color-forest-50:  #f0f7ef;
+  --color-forest-100: #d7ead3;
+  --color-forest-200: #afd4a9;
+  --color-forest-300: #85bc7d;
+  --color-forest-400: #5ba84a;
+  --color-forest-500: #3f8e32;
+  --color-forest-600: #2d5f2d;
+  --color-forest-700: #244b24;
+  --color-forest-800: #1c3a1c;
+  --color-forest-900: #142814;
+
+  --color-earth-50:  #fbf5e8;
+  --color-earth-100: #f5e8c5;
+  --color-earth-200: #ecd28c;
+  --color-earth-300: #e0b952;
+  --color-earth-400: #c89932;
+  --color-earth-500: #a47b25;
+  --color-earth-600: #83611d;
+  --color-earth-700: #654a17;
+  --color-earth-800: #4a3611;
+  --color-earth-900: #2f220b;
+
+  --color-water-50:  #eaf3fa;
+  --color-water-100: #c7ddee;
+  --color-water-200: #8dbcde;
+  --color-water-300: #5599cc;
+  --color-water-400: #2e7bb6;
+  --color-water-500: #1e5b8c;
+  --color-water-600: #184970;
+  --color-water-700: #123755;
+  --color-water-800: #0d283e;
+  --color-water-900: #081a28;
+
+  --color-cream:     #faf7f0;
+  --color-sand:      #e8dfc9;
+  --color-charcoal:  #2a2a2a;
+  --color-ink:       #1a1a1a;
+
+  /* Typography */
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Radii, shadows, motion */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  --shadow-soft: 0 4px 24px -8px rgba(20, 40, 20, 0.08);
+  --shadow-lift: 0 20px 40px -16px rgba(20, 40, 20, 0.15);
+  --shadow-deep: 0 30px 60px -20px rgba(20, 40, 20, 0.25);
+}
+
+/* ============================================
+   BASE LAYER
+   ============================================ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-charcoal);
+    background-color: var(--color-cream);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-ink);
+  }
+
+  h1 { font-size: clamp(2.5rem, 5vw + 1rem, 4.75rem); font-weight: 400; }
+  h2 { font-size: clamp(2rem, 3vw + 1rem, 3.25rem); }
+  h3 { font-size: clamp(1.5rem, 2vw + 0.5rem, 2.125rem); }
+  h4 { font-size: clamp(1.25rem, 1vw + 0.75rem, 1.5rem); }
+
+  /* Fraunces optical sizing + italic softness for display use */
+  h1, h2 {
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+
+  ::selection {
+    background: var(--color-earth-400);
+    color: var(--color-ink);
+  }
+}
+
+/* ============================================
+   COMPONENT UTILITIES
+   ============================================ */
+
+@layer components {
+  /* Container with refined max-width and responsive padding */
+  .container-x {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x { padding-inline: 2rem; }
+  }
+  @media (min-width: 1280px) {
+    .container-x { padding-inline: 3rem; }
+  }
+
+  /* Section spacing rhythm */
+  .section {
+    padding-block: clamp(3.5rem, 8vw, 6.5rem);
+  }
+
+  /* Eyebrow label */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-forest-600);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: var(--color-earth-400);
+  }
+
+  /* Primary button */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--color-forest-600);
+    color: var(--color-cream);
+  }
+  .btn-primary:hover {
+    background: var(--color-forest-700);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+  }
+  .btn-earth {
+    background: var(--color-earth-400);
+    color: var(--color-ink);
+  }
+  .btn-earth:hover {
+    background: var(--color-earth-500);
+    color: var(--color-cream);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-forest-700);
+    border-color: var(--color-forest-600);
+  }
+  .btn-ghost:hover {
+    background: var(--color-forest-600);
+    color: var(--color-cream);
+  }
+
+  /* Link with animated underline */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-forest-700);
+    font-weight: 500;
+    position: relative;
+  }
+  .link-arrow::after {
+    content: "→";
+    transition: transform 220ms ease;
+  }
+  .link-arrow:hover::after {
+    transform: translateX(4px);
+  }
+
+  /* Decorative leaf divider */
+  .leaf-rule {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-earth-400);
+  }
+  .leaf-rule::before,
+  .leaf-rule::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-earth-300),
+      transparent
+    );
+  }
+
+  /* Card with warm elevation */
+  .card {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: transform 240ms ease, box-shadow 240ms ease;
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  /* Soft paper surface */
+  .surface-paper {
+    background:
+      radial-gradient(at 0% 0%, rgba(200, 153, 50, 0.05), transparent 50%),
+      radial-gradient(at 100% 100%, rgba(45, 95, 45, 0.04), transparent 50%),
+      var(--color-cream);
+  }
+
+  .surface-forest {
+    background: var(--color-forest-800);
+    color: var(--color-cream);
+  }
+  .surface-forest h1, .surface-forest h2, .surface-forest h3 {
+    color: var(--color-cream);
+  }
+
+  /* Grain texture overlay — subtle paper feel */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@layer utilities {
+  @keyframes slow-zoom {
+    from { transform: scale(1); }
+    to   { transform: scale(1.08); }
+  }
+
+  .animate-slow-zoom {
+    animation: slow-zoom 18s ease-out both;
+  }
+
+  /*
+   * Scroll-reveal system.
+   *
+   * Elements with .animate-fade-up, .animate-fade-in, or children of
+   * .stagger-children default to fully visible (opacity: 1). This way, if
+   * JavaScript is disabled or the IntersectionObserver script hasn't loaded
+   * yet, content is always readable — never stuck at opacity 0.
+   *
+   * Once the client-side script in BaseLayout runs, it adds [data-reveal]
+   * to these elements and hides them (opacity: 0). IntersectionObserver
+   * then reveals them as they scroll into view by removing the attribute.
+   */
+  .animate-fade-up,
+  .animate-fade-in,
+  .stagger-children > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  [data-reveal] {
+    opacity: 0 !important;
+    transform: translateY(16px);
+    transition:
+      opacity 800ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: opacity, transform;
+  }
+  [data-reveal].animate-fade-in {
+    transform: none;
+  }
+
+  [data-reveal][data-revealed] {
+    opacity: 1 !important;
+    transform: none;
+  }
+
+  /* Stagger the reveals of children */
+  .stagger-children > *:nth-child(1)[data-reveal] { transition-delay: 0ms; }
+  .stagger-children > *:nth-child(2)[data-reveal] { transition-delay: 80ms; }
+  .stagger-children > *:nth-child(3)[data-reveal] { transition-delay: 160ms; }
+  .stagger-children > *:nth-child(4)[data-reveal] { transition-delay: 240ms; }
+  .stagger-children > *:nth-child(5)[data-reveal] { transition-delay: 320ms; }
+  .stagger-children > *:nth-child(6)[data-reveal] { transition-delay: 400ms; }
+  .stagger-children > *:nth-child(7)[data-reveal] { transition-delay: 480ms; }
+  .stagger-children > *:nth-child(8)[data-reveal] { transition-delay: 560ms; }
+  .stagger-children > *:nth-child(9)[data-reveal] { transition-delay: 640ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+}

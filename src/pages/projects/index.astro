@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/sections/PageHeader.astro';
+import ProjectCard from '../../components/sections/ProjectCard.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+const categories = [
+  { value: 'all', label: 'All projects' },
+  { value: 'crops', label: 'Crops' },
+  { value: 'livestock', label: 'Livestock' },
+  { value: 'water', label: 'Water & Land' },
+  { value: 'training', label: 'Training' },
+  { value: 'community', label: 'Community' },
+];
+---
+
+<BaseLayout
+  title="Projects"
+  description="A selection of the farms, communities, and programmes Awamane Consult has supported across Eastern Kenya — from mango orchards and poultry units to gabion construction and youth training."
+>
+  <PageHeader
+    eyebrow="From the field"
+    title="Projects & programmes."
+    subtitle="A small selection of the work we've carried out with farmers, communities, and organizations across Kenya."
+  />
+
+  <section class="section">
+    <div class="container-x">
+      <!-- Category filter -->
+      <div class="mb-12 flex flex-wrap gap-2" id="project-filters">
+        {categories.map((cat) => (
+          <button
+            type="button"
+            data-filter={cat.value}
+            class:list={[
+              'filter-btn px-4 py-2 rounded-full text-sm font-medium border transition-all',
+              cat.value === 'all'
+                ? 'bg-[var(--color-forest-600)] border-[var(--color-forest-600)] text-[var(--color-cream)]'
+                : 'bg-white border-[var(--color-sand)] text-[var(--color-charcoal)] hover:border-[var(--color-forest-400)]'
+            ]}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      <!-- Project grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children" id="project-grid">
+        {projects.map((project, i) => (
+          <div class="project-item" data-category={project.data.category}>
+            <ProjectCard
+              title={project.data.title}
+              summary={project.data.summary}
+              location={project.data.location}
+              category={project.data.category}
+              coverImage={project.data.coverImage}
+              href={`/projects/${project.id}`}
+              index={i}
+            />
+          </div>
+        ))}
+      </div>
+
+      <!-- Empty state -->
+      <div id="empty-state" class="hidden py-20 text-center">
+        <p class="text-lg text-[var(--color-charcoal)]/70">No projects in this category yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title="Have a programme in mind?"
+    subtitle="We partner with NGOs, counties, and private organizations on programmes of every size — from a single demonstration plot to multi-year capacity-building engagements."
+  />
+</BaseLayout>
+
+<script>
+  const filters = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('.project-item');
+  const emptyState = document.getElementById('empty-state');
+  const grid = document.getElementById('project-grid');
+
+  filters.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      // Update button states
+      filters.forEach((b) => {
+        b.classList.remove('bg-[var(--color-forest-600)]', 'border-[var(--color-forest-600)]', 'text-[var(--color-cream)]');
+        b.classList.add('bg-white', 'border-[var(--color-sand)]', 'text-[var(--color-charcoal)]');
+      });
+      btn.classList.remove('bg-white', 'border-[var(--color-sand)]', 'text-[var(--color-charcoal)]');
+      btn.classList.add('bg-[var(--color-forest-600)]', 'border-[var(--color-forest-600)]', 'text-[var(--color-cream)]');
+
+      // Filter items
+      let visibleCount = 0;
+      items.forEach((item) => {
+        if (filter === 'all' || item.dataset.category === filter) {
+          item.style.display = '';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Toggle empty state
+      if (visibleCount === 0) {
+        emptyState?.classList.remove('hidden');
+        grid?.classList.add('hidden');
+      } else {
+        emptyState?.classList.add('hidden');
+        grid?.classList.remove('hidden');
+      }
+    });
+  });
+</script>
