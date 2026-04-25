@@ -66,7 +66,7 @@
         <div class="relative mx-auto max-w-xl lg:max-w-none aspect-[5/4] sm:aspect-[4/3] md:aspect-[9/10]">
 
           <!-- Main image (largest, central-right) -->
-          <div class="absolute top-0 right-0 w-[72%] h-[78%] rounded-[var(--radius-xl)] overflow-hidden shadow-[var(--shadow-deep)] z-20 photo-float-1">
+          <div class="absolute inset-0 sm:inset-auto sm:top-0 sm:right-0 sm:w-[72%] sm:h-[78%] rounded-[var(--radius-xl)] overflow-hidden shadow-[var(--shadow-deep)] z-20 photo-float-1">
             <img
               src="/images/mango-orchard.jpg"
               alt="Mango orchard in Eastern Kenya"
@@ -82,7 +82,7 @@
           </div>
 
           <!-- Secondary: Water (top-left) -->
-          <div class="absolute top-[8%] left-0 w-[38%] h-[32%] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lift)] z-30 photo-float-2 border-4 border-[var(--color-cream)]">
+          <div class="hidden sm:block absolute top-[8%] left-0 w-[38%] h-[32%] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lift)] z-30 photo-float-2 border-4 border-[var(--color-cream)]">
             <img
               src="/images/gabions-water-sand-harvesting.jpg"
               alt="Gabions for water harvesting"
@@ -98,7 +98,7 @@
           </div>
 
           <!-- Tertiary: Livestock (bottom-left) -->
-          <div class="absolute bottom-[6%] left-[4%] w-[44%] h-[38%] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lift)] z-30 photo-float-3 border-4 border-[var(--color-cream)]">
+          <div class="hidden sm:block absolute bottom-[6%] left-[4%] w-[44%] h-[38%] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lift)] z-30 photo-float-3 border-4 border-[var(--color-cream)]">
             <img
               src="/images/indigenous-poultry-2.jpg"
               alt="Indigenous poultry"
@@ -114,7 +114,7 @@
           </div>
 
           <!-- Fourth: Training (bottom-right, smallest) -->
-          <div class="absolute bottom-0 right-[8%] w-[32%] h-[28%] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lift)] z-40 photo-float-4 border-4 border-[var(--color-cream)]">
+          <div class="hidden sm:block absolute bottom-0 right-[8%] w-[32%] h-[28%] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-lift)] z-40 photo-float-4 border-4 border-[var(--color-cream)]">
             <img
               src="/images/mango-farmer-workshop.jpg"
               alt="Farmer training workshop"
@@ -130,7 +130,7 @@
           </div>
 
           <!-- Floating card: Prof. Kanui credential -->
-          <div class="absolute top-[32%] right-[-2%] md:right-[-4%] lg:right-[-6%] bg-[var(--color-cream)] rounded-[var(--radius-lg)] p-4 shadow-[var(--shadow-lift)] border border-[var(--color-sand)]/50 max-w-[13.5rem] z-50 hover:translate-y-[-4px] transition-transform duration-300">
+          <div class="absolute top-[32%] right-[4%] sm:right-[-2%] md:right-[-4%] lg:right-[-6%] bg-[var(--color-cream)] rounded-[var(--radius-lg)] p-4 shadow-[var(--shadow-lift)] border border-[var(--color-sand)]/50 max-w-[13.5rem] z-50 hover:translate-y-[-4px] transition-transform duration-300">
             <div class="flex items-center gap-3">
               <div class="w-9 h-9 rounded-full bg-[var(--color-forest-600)] text-[var(--color-cream)] flex items-center justify-center font-[var(--font-display)] text-xs shrink-0">TK</div>
               <div class="text-[0.7rem]">
@@ -141,7 +141,7 @@
           </div>
 
           <!-- Rotating tagline badge -->
-          <div class="absolute top-[-2%] right-[-4%] md:right-[2%] bg-[var(--color-earth-400)] rounded-full w-24 h-24 md:w-28 md:h-28 flex items-center justify-center text-[var(--color-ink)] shadow-[var(--shadow-lift)] z-50 badge-slow-spin">
+          <div class="absolute top-3 right-3 sm:top-[-2%] sm:right-[-4%] md:right-[2%] bg-[var(--color-earth-400)] rounded-full w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center text-[var(--color-ink)] shadow-[var(--shadow-lift)] z-50 badge-slow-spin">
             <div class="text-center">
               <div class="font-[var(--font-display)] italic text-[0.65rem] md:text-[0.7rem] leading-tight">Rooted in<br />research</div>
               <div class="my-1 mx-auto w-5 h-px bg-[var(--color-ink)]/40"></div>

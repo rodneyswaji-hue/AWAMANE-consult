@@ -28,7 +28,6 @@ const formatDate = (date: Date) =>
   <section class="section">
     <div class="container-x">
       {allPosts.length === 0 ? (
-        <!-- Empty state -->
         <div class="max-w-2xl mx-auto text-center py-20">
           <div class="w-20 h-20 mx-auto rounded-full bg-[var(--color-forest-50)] text-[var(--color-forest-700)] flex items-center justify-center mb-8">
             <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -46,7 +45,6 @@ const formatDate = (date: Date) =>
       ) : (
         <>
           {featured && (
-            <!-- Featured article -->
             <a href={`/blog/${featured.id}`} class="group block mb-16">
               <article class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 <div class="lg:col-span-7">
